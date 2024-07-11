@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 13, 106, 143;
+    --background-end-rgb: 8, 44, 74;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.bg-two-star {
+  background: linear-gradient(180deg, #4b6c67, #519072);
+}
+
+.bg-three-star {
+  background: linear-gradient(180deg, #567496, #5392b8);
+}
+
+.bg-four-star {
+  background: linear-gradient(180deg, #5e5789, #9c75b7);
+}
+
+.bg-five-star {
+  background: linear-gradient(180deg, #945c2c, #b27330);
+}
