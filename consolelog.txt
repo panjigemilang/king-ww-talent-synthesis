@@ -1,0 +1,36 @@
+let butuh = [
+            {
+                "title": "lendir",
+                "rarity": [
+                    {
+                        "type": "gold",
+                        "count": 10
+                    },                    
+                    {
+                        "type": "blue",
+                        "count": 30
+                    }
+                ]
+            }
+        ]
+let punya = [
+            {
+                "title": "lendir",
+                "rarity": [
+                    {
+                        "type": "purple",
+                        "count": 5
+                    },
+                    {
+                        "type": "blue",
+                        "count": 30
+                    },
+                    {
+                        "type": "green",
+                        "count": 10
+                    }
+                ]
+            }
+        ]
+let titles = butuh.map((item) => item.title)
+let filteredData = punya.filter((p) => titles.includes(p.title))

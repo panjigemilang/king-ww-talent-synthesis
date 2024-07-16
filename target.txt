@@ -1,0 +1,45 @@
+cases:
+=============================||
+[normal]
+butuh:
+ungu = 11
+emas = 10
+
+punya:
+ijo = 100
+biru = 50
+
+kalkulasi:
+ijo = 1
+biru = 2
+ungu = 12
+emas = 5
+=============================||
+[aneh][satu]
+butuh:
+ijo = 100
+ungu = 80
+
+punya:
+ungu = 1
+emas = 1
+
+kalkulasi:
+ungu = 1
+emas = 1
+/
+gajelas lu tod
+=============================||
+[aneh][dua]
+butuh:
+ijo = 5
+biru = 1
+
+punya:
+ijo = 100
+emas = 5
+
+kalkulasi:
+ijo = 97
+biru = 1
+emas = 5
