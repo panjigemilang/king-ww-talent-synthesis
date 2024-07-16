@@ -43,3 +43,8 @@ kalkulasi:
 ijo = 97
 biru = 1
 emas = 5
+/
+ijo = 7
+biru = 1
+ungu = 1
+emas = 8

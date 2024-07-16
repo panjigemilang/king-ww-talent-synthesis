@@ -40,27 +40,20 @@ export default function Item({ title, index, isOpen, items = [], onToggle }) {
   }
 
   const handleInputChange = (target, idx) => {
-    let value = parseInt(target.value)
+    const newCount = target.value
     const type = selected.value
     const itemIndex = index
     const rarityIndex = idx
-    const newCount = value
+    const isValidNumber = /^[1-9][0-9]{0,2}$|^0$/.test(newCount)
 
     // handle number rule: positive number with max = 999
-    if (!isNaN(value) && value >= 0 && value <= 999) {
+    if (isValidNumber || newCount === "")
       updateItemCount({
         type,
         itemIndex,
         rarityIndex,
-        newCount,
+        newCount: parseInt(newCount) || "",
       })
-    } else {
-      updateItemCount({
-        type,
-        itemIndex,
-        rarityIndex,
-      })
-    }
   }
 
   return (
@@ -110,7 +103,7 @@ export default function Item({ title, index, isOpen, items = [], onToggle }) {
               >
                 <Image src={item.src} alt={item.alt} width={100} height={120} />
                 <Input
-                  type="number"
+                  type="text"
                   name="value"
                   ref={(el) => (inputRef.current[idx] = el)}
                   onChange={({ target }) => handleInputChange(target, idx)}
