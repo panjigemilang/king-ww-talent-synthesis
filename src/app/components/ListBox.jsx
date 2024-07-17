@@ -32,7 +32,7 @@ export default function ListBox() {
         anchor="bottom"
         transition
         className={clsx(
-          "w-[var(--button-width)] rounded-xl border border-white/5 bg-slate-600 p-1 [--anchor-gap:var(--spacing-1)] focus:outline-none",
+          "w-[var(--button-width)] rounded-xl border border-white/5 bg-slate-500/90 p-1 z-50 [--anchor-gap:var(--spacing-1)] focus:outline-none",
           "transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0"
         )}
       >

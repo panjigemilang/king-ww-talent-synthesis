@@ -13,11 +13,11 @@ export default function ButtonReset() {
       show={data().butuh.items.length || data().punya.items.length}
     >
       <button
-        className="fixed data-[closed]:opacity-0 flex items-center right-4 bottom-14 p-2 rounded-lg border-2 border-red-600 bg-slate-100/30"
+        className="fixed data-[closed]:opacity-0 flex items-center right-4 bottom-14 p-2 rounded-lg border-2 border-red-400 bg-red-700/50"
         onClick={resetData}
       >
-        <GrPowerReset className="text-red-600" />
-        &ensp;Reset
+        <GrPowerReset className="text-red-400 text-xl" />
+        <span className="text-lg md:text-base">&ensp;Reset</span>
       </button>
     </Transition>
   )

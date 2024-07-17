@@ -44,6 +44,16 @@ input[type="number"] {
   appearance: textfield; /* Firefox */
 }
 
+.layover {
+  background: rgb(13, 36, 98);
+  background: linear-gradient(
+    180deg,
+    rgba(13, 36, 98, 0.7176120448179272) 0%,
+    rgba(0, 58, 150, 0.571953781512605) 40%,
+    rgba(229, 229, 227, 0.39548319327731096) 100%
+  );
+}
+
 .preserve-3d {
   transform-style: preserve-3d;
 }

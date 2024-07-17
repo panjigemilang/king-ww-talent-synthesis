@@ -59,7 +59,7 @@ export default function Item({ title, index, isOpen, items = [], onToggle }) {
   return (
     <Disclosure defaultOpen={isOpen}>
       <div
-        className="border my-3 p-3 rounded-lg transition-all duration-400 ease-out"
+        className="border mb-3 p-3 rounded-lg transition-all duration-400 ease-out"
         style={{
           maxHeight: isOpen ? maxHeight : "50px",
         }}
@@ -98,10 +98,20 @@ export default function Item({ title, index, isOpen, items = [], onToggle }) {
               }}
             >
               <div
-                className={`relative mx-auto rounded-lg w-[125px] h-[125px] flex items-center justify-center 
+                className={`relative mx-auto rounded-lg w-[125px] sm:w-[90px] h-[125px] sm:h-[90px] flex items-center justify-center 
             ${getBackgroundStar(item.type)}`}
               >
-                <Image src={item.src} alt={item.alt} width={100} height={120} />
+                <div className="relative w-[100px] h-[120px] md:w-[70px] md:h-[90px]">
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    sizes="100px"
+                    fill
+                    style={{
+                      objectFit: "contain",
+                    }}
+                  />
+                </div>
                 <Input
                   type="text"
                   name="value"
@@ -111,7 +121,7 @@ export default function Item({ title, index, isOpen, items = [], onToggle }) {
                   min={0}
                   max={999}
                   placeholder="0-999"
-                  className="absolute rounded-lg py-2 -bottom-3 w-12 border dark:text-black text-sm text-center data-[hover]:shadow data-[focus]:bg-blue-100"
+                  className="absolute rounded-lg py-1 md:py-0 -bottom-3 w-14 md:w-12 border text-black text-sm text-center data-[hover]:shadow data-[focus]:bg-blue-100"
                 />
               </div>
             </div>

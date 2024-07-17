@@ -30,7 +30,13 @@ export default function ResultItem({ data, title }) {
     <div className="mb-5">
       <p className="text-md mb-2">{title}</p>
       {data.map(({ title, rarity: rarities }) => (
-        <div key={title} className="flex mb-3">
+        <div
+          key={title}
+          className="flex mb-3 p-2 border border-gray-300/40 rounded-lg"
+          style={{
+            boxShadow: "inset 0 2px 6px 0 #968f8f, inset 0 0px 9px 0 #968f8f",
+          }}
+        >
           {rarities.map(({ type, count }) => (
             <div key={title + "_" + type} className="w-1/4 p-1">
               <div
