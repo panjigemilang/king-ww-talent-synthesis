@@ -1,13 +1,13 @@
 export const menus = [
   {
     id: 1,
-    text: "Lu orang BUTUH berapa ha?",
-    value: "butuh",
+    text: "Lu orang PUNYA berapa ha?",
+    value: "punya",
   },
   {
     id: 2,
-    text: "Lu orang PUNYA berapa ha?",
-    value: "punya",
+    text: "Lu orang BUTUH berapa ha?",
+    value: "butuh",
   },
 ]
 
