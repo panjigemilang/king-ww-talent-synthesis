@@ -10,7 +10,7 @@ export default function Result() {
   const punyaItems = data().punya.items
 
   return (
-    <div className="relative h-screen overflow-y-auto bg-gray-500/30 p-3 pb-10 transition-all duration-300 ease-in data-[closed]:opacity-0 z-30 sm:mx-auto sm:max-w-screen-sm">
+    <div className="relative h-screen overflow-y-auto bg-slate-500/70 p-3 pb-24 transition-all duration-300 ease-in data-[closed]:opacity-0 z-30 sm:mx-auto sm:max-w-screen-sm">
       <h1 className="text-xl font-bold mb-3">Hasil</h1>
       {butuhItems.length > 0 && (
         <ResultItem
@@ -26,7 +26,7 @@ export default function Result() {
       {punyaItems.length > 0 && (
         <ResultItem
           data={dataKalkulasi(butuhItems, punyaItems)}
-          title={"Kalkulasi dari gua ni ye woilah tay:"}
+          title={"Kira kira lu bakal punya segini:"}
         />
       )}
     </div>

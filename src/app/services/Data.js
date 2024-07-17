@@ -161,6 +161,16 @@ export const dataKalkulasi = (butuh, punya) => {
     }
   }
 
+  const calculatePassed = (val = 0, req) => {
+    if (req) {
+      if (val >= req) return "text-green-500"
+      else if (val + 7 >= req) return "text-amber-400"
+      else return "text-red-600"
+    }
+
+    return "text-white"
+  }
+
   const convertingData = (data, requirementRarity = {}) => {
     const { title, rarity } = data
     const requirement = requirementRarity[title] || {}
@@ -191,19 +201,30 @@ export const dataKalkulasi = (butuh, punya) => {
     )
 
     const updatedRarities = [
-      { type: "gold", count: counts.gold + goldVal },
-      { type: "purple", count: purpleChanges },
-      { type: "blue", count: blueChanges },
-      { type: "green", count: greenChanges },
+      {
+        type: "gold",
+        count: counts.gold + goldVal,
+        passed: calculatePassed(counts.gold + goldVal, requirement.gold),
+      },
+      {
+        type: "purple",
+        count: purpleChanges,
+        passed: calculatePassed(purpleChanges, requirement.purple),
+      },
+      {
+        type: "blue",
+        count: blueChanges,
+        passed: calculatePassed(blueChanges, requirement.blue),
+      },
+      {
+        type: "green",
+        count: greenChanges,
+        passed: calculatePassed(greenChanges, requirement.green),
+      },
     ].filter((r) => r.count > 0)
+    console.log("Naon tea", updatedRarities)
 
     return { ...data, rarity: updatedRarities }
-  }
-
-  const convertMax = (data) => {
-    const result = data.map((f) => convertingData(f))
-
-    return result
   }
 
   const getRequirementRarity = (data) => {
@@ -225,7 +246,7 @@ export const dataKalkulasi = (butuh, punya) => {
     // nyari apa yg punya ada di 'butuh'
     const found = punya.find((p) => butuh.find((b) => b.title === p.title))
     // kalo gk nemu, convert max si 'punya'
-    if (!found) return convertMax(punya)
+    if (!found) return punya.map((f) => convertingData(f))
     // kalkulasi normal
     else {
       const requirementRarity = getRequirementRarity(butuh)
@@ -237,7 +258,8 @@ export const dataKalkulasi = (butuh, punya) => {
       )
       let convertedToMax = []
       // convert to max data that excluded from 'butuh'
-      if (excludedData.length) convertedToMax = convertMax(excludedData)
+      if (excludedData.length)
+        convertedToMax = excludedData.map((f) => convertingData(f))
 
       const result = filteredData.map((f) =>
         convertingData(f, requirementRarity)
@@ -250,7 +272,7 @@ export const dataKalkulasi = (butuh, punya) => {
   }
   // ini konvert max biasa
   else if (punya.length > 0) {
-    return convertMax(punya)
+    return punya.map((f) => convertingData(f))
   }
 
   return []

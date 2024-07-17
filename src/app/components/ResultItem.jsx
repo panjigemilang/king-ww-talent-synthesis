@@ -37,7 +37,7 @@ export default function ResultItem({ data, title }) {
             boxShadow: "inset 0 2px 6px 0 #968f8f, inset 0 0px 9px 0 #968f8f",
           }}
         >
-          {rarities.map(({ type, count }) => (
+          {rarities.map(({ type, count, passed }) => (
             <div key={title + "_" + type} className="w-1/4 p-1">
               <div
                 className={`relative mx-auto rounded-lg w-full flex items-center justify-center 
@@ -50,7 +50,9 @@ export default function ResultItem({ data, title }) {
                   height={120}
                 />
               </div>
-              <span className="block w-full rounded-lg mt-2 p-1 text-center bg-slate-400/50">
+              <span
+                className={`block w-full rounded-lg mt-2 p-1 text-center font-semibold bg-slate-400/50 ${passed}`}
+              >
                 {count}
               </span>
             </div>

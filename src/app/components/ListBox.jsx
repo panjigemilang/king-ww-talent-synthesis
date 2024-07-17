@@ -18,7 +18,7 @@ export default function ListBox() {
     <Listbox value={selected} onChange={setselected}>
       <ListboxButton
         className={clsx(
-          "relative block w-full rounded-lg bg-white/15 py-1.5 pr-8 pl-3 text-left text-sm/6 text-white",
+          "relative block w-full rounded-lg bg-[#4065a16e] py-1.5 pr-8 pl-3 text-left text-sm/6 text-white",
           "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
         )}
       >
