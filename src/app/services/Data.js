@@ -145,13 +145,6 @@ export const items = [
 ]
 
 export const dataKalkulasi = (butuh, punya) => {
-  const getConvertedData = (rawData) => {
-    return {
-      dapet: Math.floor(rawData / 3),
-      kembali: rawData % 3,
-    }
-  }
-
   const convertWithRequirement = (val = 0, req = 0) => {
     const conversionRate = 3
     let kembalian = val
@@ -168,46 +161,47 @@ export const dataKalkulasi = (butuh, punya) => {
     }
   }
 
-  const convertMax = (data) => {
-    const result = data.map((item) => {
-      let temp = []
-      let copyRarity = item.rarity.map((r) => {
-        if (r.type !== "gold") {
-          const { dapet, kembali } = getConvertedData(r.count)
+  const convertingData = (data, requirementRarity = {}) => {
+    const { title, rarity } = data
+    const requirement = requirementRarity[title] || {}
+    const counts = {
+      gold: 0,
+      purple: 0,
+      blue: 0,
+      green: 0,
+    }
 
-          if (dapet > 0) {
-            const type =
-              r.type === "purple"
-                ? "gold"
-                : r.type === "blue"
-                ? "purple"
-                : "blue"
-
-            temp.push({
-              type,
-              count: dapet,
-            })
-            return {
-              ...r,
-              count: kembali,
-            }
-          }
-        }
-
-        return { ...r }
-      })
-      const combinedArray = temp.concat(copyRarity)
-      const rarity = combinedArray.reduce((acc, item) => {
-        const existingItem = acc.find((i) => i.type === item.type)
-
-        if (existingItem) existingItem.count += item.count
-        else acc.push({ ...item })
-
-        return acc
-      }, [])
-
-      return { ...item, rarity }
+    rarity.forEach((r) => {
+      if (counts.hasOwnProperty(r.type)) {
+        counts[r.type] = r.count || 0
+      }
     })
+
+    const { dapet: blueVal, kembali: greenChanges } = convertWithRequirement(
+      counts.green,
+      requirement.green
+    )
+    const { dapet: purpleVal, kembali: blueChanges } = convertWithRequirement(
+      counts.blue + blueVal,
+      requirement.blue
+    )
+    const { dapet: goldVal, kembali: purpleChanges } = convertWithRequirement(
+      counts.purple + purpleVal,
+      requirement.purple
+    )
+
+    const updatedRarities = [
+      { type: "gold", count: counts.gold + goldVal },
+      { type: "purple", count: purpleChanges },
+      { type: "blue", count: blueChanges },
+      { type: "green", count: greenChanges },
+    ].filter((r) => r.count > 0)
+
+    return { ...data, rarity: updatedRarities }
+  }
+
+  const convertMax = (data) => {
+    const result = data.map((f) => convertingData(f))
 
     return result
   }
@@ -245,44 +239,9 @@ export const dataKalkulasi = (butuh, punya) => {
       // convert to max data that excluded from 'butuh'
       if (excludedData.length) convertedToMax = convertMax(excludedData)
 
-      const result = filteredData.map((f) => {
-        const { title, rarity } = f
-
-        const {
-          purple: purpleReq,
-          blue: blueReq,
-          green: greenReq,
-        } = requirementRarity[title]
-
-        const counts = {
-          gold: 0,
-          purple: 0,
-          blue: 0,
-          green: 0,
-        }
-
-        rarity.forEach((r) => {
-          if (counts.hasOwnProperty(r.type)) {
-            counts[r.type] = r.count || 0
-          }
-        })
-
-        const { dapet: blueVal, kembali: greenChanges } =
-          convertWithRequirement(counts.green, greenReq)
-        const { dapet: purpleVal, kembali: blueChanges } =
-          convertWithRequirement(counts.blue + blueVal, blueReq)
-        const { dapet: goldVal, kembali: purpleChanges } =
-          convertWithRequirement(counts.purple + purpleVal, purpleReq)
-
-        const updatedRarities = [
-          { type: "gold", count: counts.gold + goldVal },
-          { type: "purple", count: purpleChanges },
-          { type: "blue", count: blueChanges },
-          { type: "green", count: greenChanges },
-        ].filter((r) => r.count > 0)
-
-        return { ...f, rarity: updatedRarities }
-      })
+      const result = filteredData.map((f) =>
+        convertingData(f, requirementRarity)
+      )
 
       if (convertedToMax.length) return [...result, ...convertedToMax]
 
